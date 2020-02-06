@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="blackBGColor">#000000</color>
-    <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#000000</color>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="purple">#7D26CD</color>
+    <color name="gray">#696969</color>
+    <color name="lightgreen">#4ca64c</color>
+    <color name="lightgreen2cyan">#66ff99</color>
+    <color name="red">#ff0000</color>
+    <color name="green">#008000</color>
 </resources>
