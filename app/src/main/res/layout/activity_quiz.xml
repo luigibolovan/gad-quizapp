@@ -117,10 +117,11 @@
         android:textColor="@color/white"
         android:layout_below="@id/question"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="75dp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
         />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
