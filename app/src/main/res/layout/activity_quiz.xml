@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<RelativeLayout
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,26 +23,31 @@
         android:textSize="35sp"
         />
 
-    <TextView
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/timer"
+        android:id="@+id/stats">
+
+        <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/txt_question"
         android:text="Question"
         android:textColor="@color/gray"
-        android:layout_below="@id/timer"
         android:textSize="30sp"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="50dp"
         />
 
 
-    <TextView
+
+        <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/idx_question"
         android:textColor="@color/gray"
         android:layout_toEndOf="@id/txt_question"
-        android:layout_below="@id/timer"
         android:layout_marginTop="50dp"
         android:textSize="30sp"
         android:layout_marginLeft="10dp"
@@ -52,7 +61,6 @@
         android:text="0"
         android:textColor="@color/red"
         android:layout_alignParentEnd="true"
-        android:layout_below="@id/timer"
         android:layout_marginTop="50dp"
         android:textSize="30sp"
         android:layout_marginRight="30dp"
@@ -64,7 +72,6 @@
         android:id="@+id/slash"
         android:text="/"
         android:textColor="@color/gray"
-        android:layout_below="@id/timer"
         android:layout_toStartOf="@id/wrongAnsCounter"
         android:layout_marginTop="50dp"
         android:textSize="30sp"
@@ -76,7 +83,6 @@
         android:id="@+id/correctAnsCounter"
         android:text="0"
         android:textColor="@color/green"
-        android:layout_below="@id/timer"
         android:layout_marginTop="50dp"
         android:textSize="30sp"
         android:layout_toStartOf="@id/slash"
@@ -92,12 +98,13 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         />
+    </RelativeLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/questionLine"
+        android:layout_below="@id/stats"
         android:layout_marginTop="75dp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
@@ -107,7 +114,11 @@
         android:textSize="20sp"
         android:id="@+id/question"
         />
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonPanel"
+        android:layout_below="@id/question">
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -115,7 +126,6 @@
         android:background="@drawable/option_button"
         android:text="Option 1"
         android:textColor="@color/white"
-        android:layout_below="@id/question"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="75dp"
         android:layout_marginLeft="45dp"
@@ -175,8 +185,7 @@
         android:text="@string/next"
         android:textColor="@color/white"
         />
-
-
-
+    </RelativeLayout>
 
 </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

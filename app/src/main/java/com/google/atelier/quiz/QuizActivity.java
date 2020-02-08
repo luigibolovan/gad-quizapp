@@ -1,10 +1,11 @@
 package com.google.atelier.quiz;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -18,6 +19,13 @@ import static com.google.atelier.quiz.PlayActivity.SWITCH_BUTTON;
 
 public class QuizActivity extends AppCompatActivity {
 
+    public static final long TIMER_VALUE            =   31000;
+    public static int HIGHSCORE                     =   0;
+    public static final String HIGHSCORE_KEY        =   "Highscore";
+    public static final String LASTSCORE_KEY        =   "Last score";
+    public static final String ACTIVITY_ID_KEY      =   "Quiz_key";
+    public static final String ACTIVITY_ID          =   "QUIZ";
+    private boolean selectedOption                  =   false;
     private TextView questionTextView;
     private Button option1;
     private Button option2;
@@ -28,13 +36,13 @@ public class QuizActivity extends AppCompatActivity {
     private int questionNumber = 1;
     private TextView correctAnsTextView;
     private TextView wrongAnsTextView;
-    private boolean selectedOption;
-
+    private TextView timerTextView;
     private QuizDatabase mQuizDatabase;
     private List<Question> mAllQuestions;
-    private int questionListSize;
     private int correctAnswersCounter;
     private int wrongAnswersCounter;
+    private TextView finalScore;
+    private Button homeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,19 +59,47 @@ public class QuizActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
-        questionTextView        =   findViewById(R.id.question);
-        option1                 =   findViewById(R.id.option1);
-        option2                 =   findViewById(R.id.option2);
-        option3                 =   findViewById(R.id.option3);
-        option4                 =   findViewById(R.id.option4);
-        nextButton              =   findViewById(R.id.nextBtn);
-        questionStringNo        =   findViewById(R.id.idx_question);
-        correctAnsTextView      =   findViewById(R.id.correctAnsCounter);
-        wrongAnsTextView        =   findViewById(R.id.wrongAnsCounter);
+        questionTextView            =   findViewById(R.id.question);
+        option1                     =   findViewById(R.id.option1);
+        option2                     =   findViewById(R.id.option2);
+        option3                     =   findViewById(R.id.option3);
+        option4                     =   findViewById(R.id.option4);
+        nextButton                  =   findViewById(R.id.nextBtn);
+        questionStringNo            =   findViewById(R.id.idx_question);
+        correctAnsTextView          =   findViewById(R.id.correctAnsCounter);
+        wrongAnsTextView            =   findViewById(R.id.wrongAnsCounter);
+        timerTextView               =   findViewById(R.id.timer);
+        CountDownTimer quizTimer    = new CountDownTimer(TIMER_VALUE, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timerTextView.setText("" + millisUntilFinished / 1000);
+                if(millisUntilFinished / 1000 <= 10){
+                    timerTextView.setTextColor(Color.argb(255, 255, 0, 0));
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                AlertDialog.Builder builder = new AlertDialog.Builder(QuizActivity.this);
+                View dialogView = getLayoutInflater().inflate(R.layout.dialog_timeout, null);
+                builder.setView(dialogView);
+                finalScore = dialogView.findViewById(R.id.tv_final_score);
+                finalScore.setText(""+correctAnswersCounter);
+                homeBtn = dialogView.findViewById(R.id.btn_home);
+                homeBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        handleEnd(correctAnswersCounter);
+                    }
+                });
+
+                builder.show();
+
+            }
+        }.start();
 
         Executors.newSingleThreadScheduledExecutor().execute(new Runnable() {
             @Override
@@ -75,6 +111,15 @@ public class QuizActivity extends AppCompatActivity {
         });
     }
 
+    private void handleEnd(int score){
+        if(score > HIGHSCORE) HIGHSCORE = score;
+        int currentGameScore = score;
+        Intent returnIntent = new Intent(QuizActivity.this, PlayActivity.class);
+        returnIntent.putExtra(ACTIVITY_ID_KEY, ACTIVITY_ID);
+        returnIntent.putExtra(HIGHSCORE_KEY, HIGHSCORE);
+        returnIntent.putExtra(LASTSCORE_KEY, currentGameScore);
+        startActivity(returnIntent);
+    }
 
     private void showQuestion(Question question) {
 
@@ -113,7 +158,6 @@ public class QuizActivity extends AppCompatActivity {
             handleQuestion(mAllQuestions.get(questionIndex));
         }
     }
-
     private void handleQuestion(Question question){
         showQuestion(question);
         handleOptions(question);
