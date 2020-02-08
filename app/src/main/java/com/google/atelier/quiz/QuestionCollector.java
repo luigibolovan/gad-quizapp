@@ -56,7 +56,6 @@ public class QuestionCollector {
                 }
                 if ((lineIndex % 6 == 5)) {
                     mQuestionList.add(new Question(question, option1, option2, option3, option4, answer));
-//                    System.out.println(question + option1 + option2 + option3 + option4 + "\t" + answer);
                 }
                 lineIndex++;
             }

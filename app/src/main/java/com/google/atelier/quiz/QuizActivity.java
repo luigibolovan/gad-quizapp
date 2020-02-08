@@ -15,6 +15,7 @@ import android.widget.Toast;
 import java.util.List;
 import java.util.concurrent.Executors;
 
+import static com.google.atelier.quiz.PlayActivity.HIGHSCORE_SP;
 import static com.google.atelier.quiz.PlayActivity.SWITCH_BUTTON;
 
 public class QuizActivity extends AppCompatActivity {
@@ -43,6 +44,7 @@ public class QuizActivity extends AppCompatActivity {
     private int wrongAnswersCounter;
     private TextView finalScore;
     private Button homeBtn;
+    private long currentTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class QuizActivity extends AppCompatActivity {
         Intent mIntent = getIntent();
         if (mIntent != null) {
             isSwitchedWhite = mIntent.getBooleanExtra(SWITCH_BUTTON, false);
+            HIGHSCORE = mIntent.getIntExtra(HIGHSCORE_KEY, 0);
         }
         if(isSwitchedWhite) {
             setWhiteTheme();

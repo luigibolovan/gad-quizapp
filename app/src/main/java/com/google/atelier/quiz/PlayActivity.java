@@ -23,10 +23,11 @@ import java.util.concurrent.Executors;
 
 import static com.google.atelier.quiz.QuizActivity.ACTIVITY_ID;
 import static com.google.atelier.quiz.QuizActivity.ACTIVITY_ID_KEY;
+import static com.google.atelier.quiz.QuizActivity.HIGHSCORE_KEY;
 
 public class PlayActivity extends AppCompatActivity {
 
-    private boolean isSwitched                      =      false;
+    private boolean isSwitched                      =       false;
     public static final String SWITCH_BUTTON        =       "White theme switch";
     public static final String SHARED_PREFERENCES   =       "SharedPreferences";
     public static final String HIGHSCORE_SP         =       "Highscore";
@@ -96,10 +97,16 @@ public class PlayActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent starter = new Intent(PlayActivity.this, QuizActivity.class);
                 starter.putExtra(SWITCH_BUTTON, isSwitched);
+                starter.putExtra(HIGHSCORE_KEY, Integer.parseInt(highscoreValueTextView.getText().toString()));
                 startActivity(starter);
             }
         });
+    }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
     }
 
     private void setBlackTheme() {
