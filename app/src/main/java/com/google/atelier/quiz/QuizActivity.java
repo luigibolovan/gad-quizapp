@@ -41,6 +41,7 @@ public class QuizActivity extends AppCompatActivity {
     private int wrongAnswersCounter;
     private TextView finalScore;
     private Button homeBtn;
+    private CountDownTimer quizTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +72,7 @@ public class QuizActivity extends AppCompatActivity {
         correctAnsTextView          =   findViewById(R.id.correctAnsCounter);
         wrongAnsTextView            =   findViewById(R.id.wrongAnsCounter);
         timerTextView               =   findViewById(R.id.timer);
-        CountDownTimer quizTimer    = new CountDownTimer(TIMER_VALUE, 1000) {
+        quizTimer                   =   new CountDownTimer(TIMER_VALUE, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 timerTextView.setText("" + millisUntilFinished / 1000);
@@ -108,6 +109,12 @@ public class QuizActivity extends AppCompatActivity {
                 handleQuestions((int)(Math.random() * mAllQuestions.size()));
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        quizTimer.cancel();
     }
 
     private void handleEnd(int score){
