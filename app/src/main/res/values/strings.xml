@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">CarQuizApp</string>
     <string name="title">Car Quiz</string>
-    <string name="last_score">Last score: </string>
-    <string name="highscore">Highscore: </string>
+    <string name="last_score">Last score</string>
+    <string name="highscore">Highscore</string>
     <string name="next">NEXT</string>
 </resources>

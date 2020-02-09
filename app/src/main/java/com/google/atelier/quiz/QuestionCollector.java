@@ -2,7 +2,6 @@ package com.google.atelier.quiz;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,14 +9,14 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuestionCollector {
+class QuestionCollector {
 
     private List<Question> mQuestionList = new ArrayList<>();
-    private AssetManager mAssetManager;
-    private InputStream assetStream;
 
-    public List<Question> fetchQuestions(Context appContext)
+    List<Question> fetchQuestions(Context appContext)
     {
+        AssetManager mAssetManager;
+        InputStream assetStream;
         int lineIndex                   =       0;
         String question                 =       null;
         String option1                  =       null;
@@ -25,7 +24,7 @@ public class QuestionCollector {
         String option3                  =       null;
         String option4                  =       null;
         String answer                   =       null;
-        String input = null;
+        String input;
 
         mAssetManager = appContext.getAssets();
         try {

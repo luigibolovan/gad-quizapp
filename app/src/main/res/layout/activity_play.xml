@@ -1,25 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/black"
     android:id="@+id/playLayout"
     tools:context=".PlayActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/left"
+        app:layout_constraintGuide_percent="0.1"
+        android:orientation="vertical">
+    </androidx.constraintlayout.widget.Guideline>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/top"
+        app:layout_constraintGuide_percent="0.05"
+        android:orientation="horizontal"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_percent="0.9"
+        android:id="@+id/right"
+        android:orientation="vertical"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bottom"
+        app:layout_constraintGuide_percent="0.95"
+        android:orientation="horizontal"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/carImageBottomLine"
+        app:layout_constraintGuide_percent="0.35"
+        android:orientation="horizontal"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/titleBottom"
+        app:layout_constraintGuide_percent="0.4"
+        android:orientation="horizontal"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/playBottom"
+        app:layout_constraintGuide_percent="0.55"
+        android:orientation="horizontal"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/highscoretxtBottom"
+        app:layout_constraintGuide_percent="0.6"
+        android:orientation="horizontal"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/highscoreBottom"
+        app:layout_constraintGuide_percent="0.65"
+        android:orientation="horizontal"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lastscoretxtBottom"
+        app:layout_constraintGuide_percent="0.7"
+        android:orientation="horizontal"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lastscoreBottom"
+        app:layout_constraintGuide_percent="0.75"
+        android:orientation="horizontal"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/switchBottom"
+        app:layout_constraintGuide_percent="0.85"
+        android:orientation="horizontal"/>
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/sportscar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp"
-        android:id="@+id/i_sportscar" />
+        app:layout_constraintBottom_toTopOf="@id/carImageBottomLine"
+        app:layout_constraintLeft_toRightOf="@id/left"
+        app:layout_constraintRight_toLeftOf="@id/right"
+        app:layout_constraintTop_toBottomOf="@id/top"
+        android:id="@+id/i_sportscar"
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -28,10 +112,14 @@
         android:layout_centerHorizontal="true"
         android:layout_centerInParent="true"
         android:layout_below="@id/i_sportscar"
-        android:layout_marginTop="25dp"
+        app:layout_constraintBottom_toTopOf="@id/titleBottom"
+        app:layout_constraintLeft_toRightOf="@id/left"
+        app:layout_constraintRight_toLeftOf="@id/right"
+        app:layout_constraintTop_toBottomOf="@id/carImageBottomLine"
         android:textSize="30sp"
         android:text="@string/title"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        />
 
     <ImageView
         android:layout_width="75dp"
@@ -40,6 +128,9 @@
         android:src="@drawable/play"
         android:layout_below="@id/title"
         android:layout_centerHorizontal="true"
+        app:layout_constraintBottom_toTopOf="@id/playBottom"
+        app:layout_constraintLeft_toRightOf="@id/left"
+        app:layout_constraintRight_toLeftOf="@id/right"
         android:layout_marginTop="50dp"
         android:clickable="true"
         android:focusable="true"
@@ -48,19 +139,25 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:id="@+id/txt_highscore"
+        app:layout_constraintBottom_toTopOf="@id/highscoretxtBottom"
+        app:layout_constraintLeft_toRightOf="@id/left"
+        app:layout_constraintRight_toLeftOf="@id/right"
         android:layout_below="@id/i_play"
         android:layout_centerHorizontal="true"
         android:text="@string/highscore"
         android:textColor="#FFFFFF"
         />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/inp_highscore"
         android:layout_marginTop="15dp"
         android:layout_below="@id/i_play"
+        app:layout_constraintBottom_toTopOf="@id/highscoreBottom"
+        app:layout_constraintLeft_toRightOf="@id/left"
+        app:layout_constraintRight_toLeftOf="@id/right"
         android:layout_toEndOf="@id/txt_highscore"
         android:layout_centerHorizontal="true"
         android:textColor="#FFFFFF"
@@ -71,22 +168,28 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:id="@+id/txt_lastscore"
+        app:layout_constraintBottom_toTopOf="@id/lastscoretxtBottom"
+        app:layout_constraintLeft_toRightOf="@id/left"
+        app:layout_constraintRight_toLeftOf="@id/right"
         android:layout_below="@id/txt_highscore"
         android:layout_centerHorizontal="true"
         android:text="@string/last_score"
         android:textColor="#FFFFFF"
         />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/inp_lastscore"
         android:layout_marginTop="15dp"
         android:layout_below="@id/inp_highscore"
+        app:layout_constraintBottom_toTopOf="@id/lastscoreBottom"
+        app:layout_constraintLeft_toRightOf="@id/left"
+        app:layout_constraintRight_toLeftOf="@id/right"
         android:layout_toEndOf="@id/txt_lastscore"
         android:layout_centerHorizontal="true"
         android:textColor="#FFFFFF"
         />
-
 
     <Switch
         android:layout_width="wrap_content"
@@ -94,11 +197,12 @@
         android:thumb="@drawable/switch_thumb"
         android:track="@drawable/switch_track"
         android:id="@+id/switchBtn"
+        app:layout_constraintBottom_toTopOf="@id/switchBottom"
+        app:layout_constraintLeft_toRightOf="@id/left"
+        app:layout_constraintRight_toLeftOf="@id/right"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/txt_lastscore"
         android:layout_marginTop="50dp"
         />
 
-
-</RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

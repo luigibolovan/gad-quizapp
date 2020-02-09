@@ -1,28 +1,19 @@
 package com.google.atelier.quiz;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-import java.util.concurrent.Executors;
-
-import static com.google.atelier.quiz.QuizActivity.ACTIVITY_ID;
-import static com.google.atelier.quiz.QuizActivity.ACTIVITY_ID_KEY;
 import static com.google.atelier.quiz.QuizActivity.HIGHSCORE_KEY;
 
 public class PlayActivity extends AppCompatActivity {
@@ -33,20 +24,28 @@ public class PlayActivity extends AppCompatActivity {
     public static final String HIGHSCORE_SP         =       "Highscore";
     public static final String LASTSCORE_SP         =       "Lastscore";
     public static final String SWITCH_SP            =       "Switch";
-    TextView highscoreValueTextView;
-    TextView lastScoreValueTextView;
-    Switch darkModeSwitch;
-
+    private TextView highscoreValueTextView;
+    private TextView lastScoreValueTextView;
+    private Switch whiteModeSwitch;
+    private ConstraintLayout mConstraintLayout;
+    private TextView appTitle;
+    private TextView highScoreTxt;
+    private TextView lastScoreTxt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
-        highscoreValueTextView = findViewById(R.id.inp_highscore);
-        lastScoreValueTextView = findViewById(R.id.inp_lastscore);
-        int highscore          = Integer.parseInt((getScores(HIGHSCORE_SP)));
-        int lastScore          = Integer.parseInt((getScores(LASTSCORE_SP)));
-        boolean isWhiteTheme   = isWhite();
+        mConstraintLayout           =   (ConstraintLayout) findViewById(R.id.playLayout);
+        appTitle                    =   (TextView)findViewById(R.id.title);
+        highScoreTxt                =   (TextView)findViewById(R.id.txt_highscore);
+        lastScoreTxt                =   (TextView)findViewById(R.id.txt_lastscore);
+        whiteModeSwitch             =   (Switch)findViewById(R.id.switchBtn);
+        highscoreValueTextView      = findViewById(R.id.inp_highscore);
+        lastScoreValueTextView      = findViewById(R.id.inp_lastscore);
+        int highscore               = Integer.parseInt((getScores(HIGHSCORE_SP)));
+        int lastScore               = Integer.parseInt((getScores(LASTSCORE_SP)));
+        boolean isWhiteTheme        = isWhite();
         if(isWhiteTheme){
             setWhiteTheme();
         }else{
@@ -73,8 +72,7 @@ public class PlayActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        darkModeSwitch = (Switch)findViewById(R.id.switchBtn);
-        darkModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        whiteModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Toast.makeText(getApplicationContext(), "White theme " + (isChecked ? "on" : "off"), Toast.LENGTH_SHORT).show();
@@ -110,38 +108,24 @@ public class PlayActivity extends AppCompatActivity {
     }
 
     private void setBlackTheme() {
-        RelativeLayout myRelativeLayout     =   (RelativeLayout) findViewById(R.id.playLayout);
-        TextView appTitle                   =   (TextView)findViewById(R.id.title);
-        TextView highScoreTxt               =   (TextView)findViewById(R.id.txt_highscore);
-        TextView highScoreValue             =   (TextView)findViewById(R.id.inp_highscore);
-        TextView lastScoreTxt               =   (TextView)findViewById(R.id.txt_lastscore);
-        TextView lastScoreValue             =   (TextView)findViewById(R.id.inp_lastscore);
 
-        myRelativeLayout.setBackgroundColor(Color.argb(255, 0, 0, 0));
+        mConstraintLayout.setBackgroundColor(Color.argb(255, 0, 0, 0));
         appTitle.setTextColor(Color.argb(255, 255, 255, 255));
         highScoreTxt.setTextColor(Color.argb(255,255,255,255));
-        highScoreValue.setTextColor((Color.argb(255, 255, 255, 255)));
+        highscoreValueTextView.setTextColor((Color.argb(255, 255, 255, 255)));
         lastScoreTxt.setTextColor(Color.argb(255, 255, 255, 255));
-        lastScoreValue.setTextColor(Color.argb(255, 255, 255, 255));
+        lastScoreValueTextView.setTextColor(Color.argb(255, 255, 255, 255));
         isSwitched = false;
     }
 
     private void setWhiteTheme() {
-        RelativeLayout myRelativeLayout     = (RelativeLayout) findViewById(R.id.playLayout);
-        TextView appTitle                   = (TextView) findViewById(R.id.title);
-        TextView highScoreTxt               = (TextView) findViewById(R.id.txt_highscore);
-        TextView highScoreValue             = (TextView) findViewById(R.id.inp_highscore);
-        TextView lastScoreTxt               = (TextView) findViewById(R.id.txt_lastscore);
-        TextView lastScoreValue             = (TextView) findViewById(R.id.inp_lastscore);
-        Switch whiteThemeSwitch             = (Switch) findViewById(R.id.switchBtn);
-
-        myRelativeLayout.setBackgroundColor(Color.argb(255, 255, 255, 255));
+        mConstraintLayout.setBackgroundColor(Color.argb(255, 255, 255, 255));
         appTitle.setTextColor(Color.argb(255, 0, 0, 0));
         highScoreTxt.setTextColor(Color.argb(255, 0, 0, 0));
-        highScoreValue.setTextColor((Color.argb(255, 0, 0, 0)));
+        highscoreValueTextView.setTextColor((Color.argb(255, 0, 0, 0)));
         lastScoreTxt.setTextColor(Color.argb(255, 0, 0, 0));
-        lastScoreValue.setTextColor(Color.argb(255, 0, 0, 0));
-        whiteThemeSwitch.setChecked(true);
+        lastScoreValueTextView.setTextColor(Color.argb(255, 0, 0, 0));
+        whiteModeSwitch.setChecked(true);
         isSwitched = true;
     }
 

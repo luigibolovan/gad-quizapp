@@ -2,20 +2,17 @@ package com.google.atelier.quiz;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.List;
 import java.util.concurrent.Executors;
-
-import static com.google.atelier.quiz.PlayActivity.HIGHSCORE_SP;
 import static com.google.atelier.quiz.PlayActivity.SWITCH_BUTTON;
 
 public class QuizActivity extends AppCompatActivity {
@@ -44,7 +41,6 @@ public class QuizActivity extends AppCompatActivity {
     private int wrongAnswersCounter;
     private TextView finalScore;
     private Button homeBtn;
-    private long currentTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,7 +131,7 @@ public class QuizActivity extends AppCompatActivity {
 
 
     private void setWhiteTheme() {
-        RelativeLayout quizLayout   =   (RelativeLayout)findViewById(R.id.quizLayout);
+        ConstraintLayout quizLayout =   (ConstraintLayout)findViewById(R.id.quizLayout);
         TextView countdown          =   (TextView)findViewById(R.id.timer);
         TextView question           =   (TextView)findViewById(R.id.question);
 
