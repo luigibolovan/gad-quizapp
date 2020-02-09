@@ -1,29 +1,38 @@
 package com.google.atelier.quiz;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
+import android.os.CountDownTimer;
 import java.util.List;
 import java.util.concurrent.Executors;
 
 
 public class StartupActivity extends AppCompatActivity {
 
-    public static final int TIMEOUT = 1000;
+    final static int WAIT_VALUE = 1000;
+    private CountDownTimer startTimer = new CountDownTimer(WAIT_VALUE, 1000) {
+        @Override
+        public void onTick(long millisUntilFinished) {
+            //nothing to do
+        }
 
-    @RequiresApi(api = Build.VERSION_CODES.P)
+        @Override
+        public void onFinish() {
+            Intent playIntent = new Intent(StartupActivity.this, PlayActivity.class);
+            startActivity(playIntent);
+            finish();
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startup);
 
-        Handler startHandler = new Handler();
-        waitOneSecond(startHandler);
         loadQuestions(getApplicationContext());
+        startTimer.start();
     }
 
     private void loadQuestions(final Context myContext) {
@@ -36,20 +45,9 @@ public class StartupActivity extends AppCompatActivity {
                     QuizDatabase.getAppInstance(myContext).questionDao().insertAll(questions);
                 }
             });
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.P)
-    private void waitOneSecond(Handler startHandler) {
-        startHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent playIntent = new Intent(StartupActivity.this, PlayActivity.class);
-                startActivity(playIntent);
-                finish();
-            }
-        }, null, TIMEOUT);
-    }
 }
